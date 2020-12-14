@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <h1>Exercice 5</h1>
+    <h1>Exercice 6</h1>
     <h2>Afficher le nombre de jour dans le mois de février de l'année 2016.</h2>
 
     <?php
