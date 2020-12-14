@@ -7,7 +7,7 @@
 <body>
 
     <h1>Exercice 8</h1>
-    <h2>Afficher la date du jour + 22 jours.</h2>
+    <h2>Afficher la date du jour - 22 jours.</h2>
 
     <?php
         $date = date('d-m-Y', strtotime('-22 days'));
