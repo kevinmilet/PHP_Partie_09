@@ -2,18 +2,18 @@
     $month = $_GET['month'];
     $year = $_GET['year'];
     $monthList = array(
-        '1'=>'janvier',
-        '2'=>'février',
-        '3'=>'mars',
-        '4'=>'avril',
-        '5'=>'mai',
-        '6'=>'juin',
-        '7'=>'juillet',
-        '8'=>'août',
-        '9'=>'septembre',
-        '10'=>'octobre',
-        '11'=>'novembre',
-        '12'=>'décembre'
+        '1'=>'Janvier',
+        '2'=>'Février',
+        '3'=>'Mars',
+        '4'=>'Avril',
+        '5'=>'Mai',
+        '6'=>'Juin',
+        '7'=>'Juillet',
+        '8'=>'Août',
+        '9'=>'Septembre',
+        '10'=>'Octobre',
+        '11'=>'Novembre',
+        '12'=>'Décembre'
     );
 
     // connaitre le nombre de jours dans le mois choisi
@@ -97,6 +97,41 @@
         
         <p>Le mois de <?=$monthList[$month];?> <?=$year;?> commence un <?=monthStart($month, $year);?> et a <?=nbDaysInMonth($month, $year);?> jours.</p>
         
+        <div class="container">
+            <div class="row month-title">
+                <h4 class="month-year"><?=$monthList[$month];?> <?=$year;?></h4>
+            </div>
+            <div class="row days">
+                <div class="col monday">
+                    <h5 class="text-center">Lundi</h5>
+                </div>
+                <div class="col tuesday">
+                    <h5 class="text-center">Mardi</h5>
+                </div>
+                <div class="col wednesday">
+                    <h5 class="text-center">Mercredi</h5>
+                </div>
+                <div class="col thursday">
+                    <h5 class="text-center">Jeudi</h5>
+                </div>
+                <div class="col friday">
+                    <h5 class="text-center">Vendredi</h5>
+                </div>
+                <div class="col saturday">
+                    <h5 class="text-center">Samedi</h5>
+                </div>
+                <div class="col sunday">
+                    <h5 class="text-center">Dimanche</h5>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+        </div>
+
     </div>
 
     
