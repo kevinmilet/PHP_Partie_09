@@ -1,6 +1,12 @@
 <?php
-    $month = $_GET['month'];
-    $year = $_GET['year'];
+    if (empty($_GET['month']) && empty($_GET['year'])) {
+        $month = date('n');
+        $year = date('Y');
+    } else {
+        $month = $_GET['month'];
+        $year = $_GET['year'];
+    }
+    
     $monthList = array(
         '1'=>'Janvier',
         '2'=>'Février',
@@ -16,19 +22,19 @@
         '12'=>'Décembre'
     );
 
-    // connaitre le nombre de jours dans le mois choisi
-    function nbDaysInMonth($month, $year) {
-        $nbDaysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        return $nbDaysInMonth;
-    };
+    // nombre de jours dans le mois choisi    
+    $nbDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
-    // connaitre quel jour commence le mois
-    function monthStart($month, $year) {
-        setlocale(LC_TIME, 'fr_FR', 'french', 'fra');
-        $monthStart = strftime('%A', strtotime($year.'-'.$month.'-01'));
-        return $monthStart;
-    };
+    // 1er jour du mois choisi
+    setlocale(LC_ALL, 'fr_FR', 'french', 'fra');
+    $firstDay = strftime('%A', strtotime($year.'-'.$month.'-01'));
+    $firstDayNumber = strftime('%u', strtotime($year.'-'.$month.'-01'));
 
+    // dernier jour du mois
+    $lastDay = date('t', mktime(0, 0, 0, $month, 1, $year));
+    var_dump($lastDay);
+
+    $monthArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null];
 ?>
 
 <!DOCTYPE html>
@@ -93,91 +99,61 @@
 
         </div>
 
-        <hr>
+        <p>Le mois de <?=$monthList[$month];?> <?=$year;?> commence un <?=$firstDay.' '.$firstDayNumber;?> et a <?=$nbDays;?> jours.</p>
         
-        <p>Le mois de <?=$monthList[$month];?> <?=$year;?> commence un <?=monthStart($month, $year);?> et a <?=nbDaysInMonth($month, $year);?> jours.</p>
-        
-        <div class="container">
+        <div class="container mb-5">
             <div class="row month-title">
                 <h4 class="month-year"><?=$monthList[$month];?> <?=$year;?></h4>
             </div>
             <div class="row days">
-                <div class="col monday">
+                <div class="col">
                     <h5 class="text-center">Lundi</h5>
                 </div>
-                <div class="col tuesday">
+                <div class="col">
                     <h5 class="text-center">Mardi</h5>
                 </div>
-                <div class="col wednesday">
+                <div class="col">
                     <h5 class="text-center">Mercredi</h5>
                 </div>
-                <div class="col thursday">
+                <div class="col">
                     <h5 class="text-center">Jeudi</h5>
                 </div>
-                <div class="col friday">
+                <div class="col">
                     <h5 class="text-center">Vendredi</h5>
                 </div>
-                <div class="col saturday">
+                <div class="col">
                     <h5 class="text-center">Samedi</h5>
                 </div>
-                <div class="col sunday">
+                <div class="col">
                     <h5 class="text-center">Dimanche</h5>
                 </div>
             </div>
-            <div class="row">
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-            </div>
-            <div class="row">
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-            </div>
-            <div class="row">
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-            </div>
-            <div class="row">
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-            </div>
-            <div class="row">
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-            </div>
-            <div class="row">
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-                <div class="col day-case"></div>
-            </div>
+
+            <?php
+                foreach ($monthArray as $day) {
+                    if ($day%7 === 0) {
+                        echo '<div class="row">';
+                    }
+                    if () {
+                        echo '</div>';
+                    }
+                    // echo '</div>';
+                    //     for ($i = 1; $i <= $firstDayNumber; $i++) {
+                    //         echo '<div class="col day-case"></div>'; 
+                    //     }
+                    //     for ($i = $firstDayNumber; $i <= $lastDay; $i++) {
+                    //         echo '<div class="col day-case">'. $day .'</div>';
+                    //     }
+                    //     for ($i = $lastDay; $i <= $nbDays; $i++) {
+                    //         echo '<div class="col day-case"></div>';
+                            
+                    //     }
+                    }
+                // }
+                
+                
+            ?>
+            
         </div>
 
     </div>
