@@ -130,11 +130,11 @@
             </div>
 
             <?php
-                foreach ($monthArray as $day) {
-                    if ($day%7 === 0) {
+                foreach ($monthArray as $key => $day) {
+                    if ($key%7 == 0) {
                         echo '<div class="row">';
                     }
-                    if () {
+                    if (($key-1)%7 == 0) {
                         echo '</div>';
                     }
                     // echo '</div>';
