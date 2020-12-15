@@ -53,11 +53,11 @@
 
             <p>Choisissez un mois et une année: </p>
         
-            <form action="index.php" method="get" class="form-inlines">
+            <form action="index.php" method="get" class="form-inline">
 
-                <div class="form-group">
+                <div class="form-group ml-2">
                     <label for="month">Mois</label>
-                    <select name="month" id="month">
+                    <select name="month" id="month" class="form-control ml-2">
                         <option value="1">Janvier</option>
                         <option value="2">Février</option>
                         <option value="3">Mars</option>
@@ -73,9 +73,9 @@
                     </select>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group ml-2">
                     <label for="year">Année</label>
-                    <select name="year" id="year">
+                    <select name="year" id="year" class="form-control ml-2">
                         <option value="2020">2020</option>
                         <option value="2021">2021</option>
                         <option value="2022">2022</option>
@@ -85,7 +85,7 @@
                     </select>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group ml-3">
                     <button type="submit" class="btn btn-primary">Envoyer</button>
                 </div>
 
@@ -124,12 +124,60 @@
                     <h5 class="text-center">Dimanche</h5>
                 </div>
             </div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
+            <div class="row">
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+            </div>
+            <div class="row">
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+            </div>
+            <div class="row">
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+            </div>
+            <div class="row">
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+            </div>
+            <div class="row">
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+            </div>
+            <div class="row">
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+                <div class="col day-case"></div>
+            </div>
         </div>
 
     </div>
