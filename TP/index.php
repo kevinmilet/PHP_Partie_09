@@ -49,6 +49,85 @@
     }
 
     $caseClass = '';
+
+    // fonction pour déterminer si le jour est férié
+    function jour_ferie($timestamp) {
+        $jour = date("d", $timestamp);
+        $mois = date("m", $timestamp);
+        $annee = date("Y", $timestamp);
+        $EstFerie = 0;
+        $holiday = '';
+
+        // dates fériées fixes
+        if ($jour == 1 && $mois == 1) {
+            $EstFerie = 1; // 1er janvier
+            $holiday = 'Jour de l\'an';
+        }
+        if ($jour == 1 && $mois == 5) {
+            $EstFerie = 1; // 1er mai
+        }
+        if ($jour == 8 && $mois == 5) {
+            $EstFerie = 1; // 8 mai
+        }
+        if ($jour == 14 && $mois == 7) {
+            $EstFerie = 1; // 14 juillet
+        }
+        if ($jour == 15 && $mois == 8) {
+            $EstFerie = 1; // 15 aout
+        }
+        if ($jour == 1 && $mois == 11) {
+            $EstFerie = 1; // 1 novembre
+        }
+        if ($jour == 11 && $mois == 11){
+            $EstFerie = 1; // 11 novembre
+        } 
+        if ($jour == 25 && $mois == 12){
+            $EstFerie = 1; // 25 décembre
+        } 
+
+        // fetes religieuses mobiles
+        $pak = easter_date($annee);
+        $jp = date("d", $pak);
+        $mp = date("m", $pak);
+
+        if ($jp == $jour && $mp == $mois){
+            $EstFerie = 1;
+        } // Pâques
+
+        $lpk = mktime(date("H", $pak), date("i", $pak), date("s", $pak), date("m", $pak), date("d", $pak) +1, date("Y", $pak) );
+        $jp = date("d", $lpk);
+        $mp = date("m", $lpk);
+
+        if ($jp == $jour && $mp == $mois){
+            $EstFerie = 1;
+        }// Lundi de Pâques
+
+        $asc = mktime(date("H", $pak), date("i", $pak), date("s", $pak), date("m", $pak), date("d", $pak) + 39, date("Y", $pak) );
+        $jp = date("d", $asc);
+        $mp = date("m", $asc);
+
+        if ($jp == $jour && $mp == $mois){
+            $EstFerie = 1;
+        }//ascension
+
+        $pe = mktime(date("H", $pak), date("i", $pak), date("s", $pak), date("m", $pak), date("d", $pak) + 49, date("Y", $pak) );
+        $jp = date("d", $pe);
+        $mp = date("m", $pe);
+
+        if ($jp == $jour && $mp == $mois) {
+            $EstFerie = 1;
+        }// Pentecôte
+
+        $lp = mktime(date("H", $asc), date("i", $pak), date("s", $pak), date("m", $pak), date("d", $pak) + 50, date("Y", $pak) );
+        $jp = date("d", $lp);
+        $mp = date("m", $lp);
+
+        if ($jp == $jour && $mp == $mois) {
+            $EstFerie = 1;
+        }// lundi Pentecôte
+
+        return $EstFerie;
+}
 ?>
 
 <!-- partie html de la page -->
@@ -75,30 +154,22 @@
                 <div class="form-group ml-2">
                     <label for="month">Mois</label>
                     <select name="month" id="month" class="form-control ml-2">
-                        <option value="1">Janvier</option>
-                        <option value="2">Février</option>
-                        <option value="3">Mars</option>
-                        <option value="4">Avril</option>
-                        <option value="5">Mai</option>
-                        <option value="6">Juin</option>
-                        <option value="7">Juillet</option>
-                        <option value="8">Août</option>
-                        <option value="9">Septembre</option>
-                        <option value="10">Octobre</option>
-                        <option value="11">Novembre</option>
-                        <option value="12">Décembre</option>
+                        <?php
+                            foreach ($monthList as $key => $value) {
+                                echo '<option value="'.$key.'">'.$value.'</option>';
+                            }
+                        ?>
                     </select>
                 </div>
 
                 <div class="form-group ml-2">
                     <label for="year">Année</label>
                     <select name="year" id="year" class="form-control ml-2">
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
+                        <?php
+                            for ($i = (date('Y') - 5); $i <= (date('Y') + 10); $i++) {
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                            }
+                        ?>
                     </select>
                 </div>
 
@@ -113,8 +184,9 @@
         <!-- Calendrier -->
         <div class="container my-5">
             <div class="row month-title">
-                <h4 class="month-year"><?=$monthList[$month];?> <a href=""><i class="fas fa-chevron-left"></i></a> <?=$year;?> <a href=""><i class="fas fa-chevron-right"></i></a></h4>
+                <h4 class="month-year"><?=$monthList[$month];?> <?=$year;?> <a href=""><i class="fas fa-chevron-left"></i></a> <a href=""><i class="fas fa-chevron-right"></i></a></h4>
             </div>
+            
             <div class="row days">
                 <div class="col">
                     <h5 class="text-center">Lundi</h5>
@@ -148,7 +220,9 @@
                         if ($day == null) {
                             $caseClass = ' empty';
                         } elseif ($day.'-'.$month.'-'.$year == date('j-m-Y')){
-                            $caseClass =' current';
+                            $caseClass = ' current';
+                        } elseif (jour_ferie(strtotime($day.'-'.$month.'-'.$year)) == 1) {
+                            $caseClass = ' holiday';
                         } else {
                             $caseClass = '';
                         }

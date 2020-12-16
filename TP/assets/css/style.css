@@ -1,20 +1,20 @@
 /* Style du calendrier */
 
 .days {
-    background-color: #5c5c5c!important;
+    background-color:#263238!important;
     color: #FFF;
-    border-radius: 5px;
 }
 
 .day-case {
     width: 100%!important;
-    height: 100px!important;
-    border: 1px solid #5c5c5c!important;
-    border-radius: 5px;
+    height: 75px!important;
+    margin-right: 1px;
+    margin-top: 1px;
+    /* padding: 0px; */
 }
 
 .empty {
-    background-color: #3e528a5e!important;
+    background-color: #e0e0e0!important;
 }
 
 .even {
@@ -22,9 +22,13 @@
 }
 
 .current {
-    background-color: #1e9c2981!important;
+    background-color:#66bb6a!important;
 }
 
-a {
+.holiday {
+    background-color:#ef5350!important;
+}
+
+a, a:hover {
     color: #000;
 }
