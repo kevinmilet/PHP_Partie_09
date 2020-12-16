@@ -1,6 +1,6 @@
 <?php
 
-    // vérifie si les parametres sont présent, sinon on leur donne une valeur par défaut -> mois et année en cours
+    // vérifie si les parametres sont présents, sinon on leur donne une valeur par défaut -> mois et année en cours
     if (empty($_GET['month']) && empty($_GET['year'])) {
         $month = date('n');
         $year = date('Y');
@@ -27,17 +27,40 @@
 
     // nombre de jours dans le mois choisi    
     $nbDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    var_dump($nbDays);
 
     // 1er jour du mois choisi
     setlocale(LC_ALL, 'fr_FR', 'french', 'fra');
-    $firstDay = strftime('%A', strtotime($year.'-'.$month.'-01'));
-    $firstDayNumber = strftime('%u', strtotime($year.'-'.$month.'-01'));
+    $firstDay = intval(strftime('%u', strtotime($year.'-'.$month.'-01')));
+    var_dump($firstDay);
 
-    // dernier jour du mois
-    $lastDay = date('t', mktime(0, 0, 0, $month, 1, $year));
+    // dernier jour du mois choisi
+    $lastDay = intval(date('t', mktime(0, 0, 0, $month, 1, $year)));
     var_dump($lastDay);
 
-    $calendar = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null];
+    // remplissage du tableau calendrier
+    $calendar = array();
+    $cal1 = array();
+    $cal2 = array();
+    $cal3 = array();
+
+    for ($a = 1; $a <= $firstDay; $a++) {
+        array_push($cal1, null);
+    }
+    for ($b = $firstDay; $b <= $lastDay; $b++) {
+        array_push($cal2, $b);
+    }
+    for ($c = $lastDay; $c <= $nbDays; $c++) {
+        array_push($cal3, null);
+    }
+    var_dump($cal1);
+    var_dump($cal2);
+    var_dump($cal3);
+
+    $calendar = array_merge($cal1, $cal2, $cal3);
+    var_dump($calendar);
+
+    // $calendar = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null];
 ?>
 
 <!-- partie html de la page -->
@@ -104,8 +127,6 @@
 
         </div>
 
-        <p>Le mois de <?=$monthList[$month];?> <?=$year;?> commence un <?=$firstDay.' '.$firstDayNumber;?> et a <?=$nbDays;?> jours.</p>
-        
         <!-- Calendrier -->
         <div class="container mb-5">
             <div class="row month-title">
