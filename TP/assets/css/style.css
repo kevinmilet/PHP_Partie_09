@@ -3,10 +3,28 @@
 .days {
     background-color: #5c5c5c!important;
     color: #FFF;
+    border-radius: 5px;
 }
 
 .day-case {
     width: 100%!important;
     height: 100px!important;
     border: 1px solid #5c5c5c!important;
+    border-radius: 5px;
+}
+
+.empty {
+    background-color: #3e528a5e!important;
+}
+
+.even {
+    font-weight: 700;
+}
+
+.current {
+    background-color: #1e9c2981!important;
+}
+
+a {
+    color: #000;
 }

@@ -48,6 +48,7 @@
         array_push($calendar, null);
     }
 
+    $caseClass = '';
 ?>
 
 <!-- partie html de la page -->
@@ -57,6 +58,7 @@
     <meta charset="UTF-8">
     <title>Partie 9 - TP</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="assets/css/style.css" class="css">
 </head>
 <body>
@@ -111,7 +113,7 @@
         <!-- Calendrier -->
         <div class="container my-5">
             <div class="row month-title">
-                <h4 class="month-year"><?=$monthList[$month];?> <?=$year;?></h4>
+                <h4 class="month-year"><?=$monthList[$month];?> <a href=""><i class="fas fa-chevron-left"></i></a> <?=$year;?> <a href=""><i class="fas fa-chevron-right"></i></a></h4>
             </div>
             <div class="row days">
                 <div class="col">
@@ -143,7 +145,14 @@
                 foreach($chunkCalendar as $week => $days) {
                     echo '<div class="row">';
                     foreach($chunkCalendar[$week] as $day){
-                        echo '<div class="col day-case">'. $day .'</div>';
+                        if ($day == null) {
+                            $caseClass = ' empty';
+                        } elseif ($day.'-'.$month.'-'.$year == date('j-m-Y')){
+                            $caseClass =' current';
+                        } else {
+                            $caseClass = '';
+                        }
+                        echo '<div class="col day-case'.$caseClass.'">'.$day.'</div>';
                     }
                     echo '</div>';
                 }
