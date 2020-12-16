@@ -1,4 +1,6 @@
 <?php
+
+    // vérifie si les parametres sont présent, sinon on leur donne une valeur par défaut -> mois et année en cours
     if (empty($_GET['month']) && empty($_GET['year'])) {
         $month = date('n');
         $year = date('Y');
@@ -7,6 +9,7 @@
         $year = $_GET['year'];
     }
     
+    // liste des mois en français
     $monthList = array(
         '1'=>'Janvier',
         '2'=>'Février',
@@ -34,9 +37,10 @@
     $lastDay = date('t', mktime(0, 0, 0, $month, 1, $year));
     var_dump($lastDay);
 
-    $monthArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null];
+    $calendar = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null];
 ?>
 
+<!-- partie html de la page -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -55,6 +59,7 @@
 
         <hr>
 
+        <!-- Formulaire permettant de choisir un mois et une année -->
         <div class="formular">
 
             <p>Choisissez un mois et une année: </p>
@@ -101,6 +106,7 @@
 
         <p>Le mois de <?=$monthList[$month];?> <?=$year;?> commence un <?=$firstDay.' '.$firstDayNumber;?> et a <?=$nbDays;?> jours.</p>
         
+        <!-- Calendrier -->
         <div class="container mb-5">
             <div class="row month-title">
                 <h4 class="month-year"><?=$monthList[$month];?> <?=$year;?></h4>
@@ -129,14 +135,16 @@
                 </div>
             </div>
 
+            <!-- Rendu du calendrier -->
             <?php
-                foreach ($monthArray as $key => $day) {
+                foreach ($calendar as $key => $day) {
                     if ($key%7 == 0) {
                         echo '<div class="row">';
                     }
                     if (($key-1)%7 == 0) {
                         echo '</div>';
                     }
+                }    
                     // echo '</div>';
                     //     for ($i = 1; $i <= $firstDayNumber; $i++) {
                     //         echo '<div class="col day-case"></div>'; 
@@ -148,7 +156,7 @@
                     //         echo '<div class="col day-case"></div>';
                             
                     //     }
-                    }
+                    // }
                 // }
                 
                 
@@ -157,9 +165,6 @@
         </div>
 
     </div>
-
-    
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
