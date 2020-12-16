@@ -74,7 +74,7 @@
         if ($hDay == 8 && $hMonth == 5) {
             $isHoliday = array (true, 'Fête de la Victoire'); 
         }
- 
+
         // 14 juillet - fête nationale
         if ($hDay == 14 && $hMonth == 7) {
             $isHoliday = array (true, 'Fête Nationale'); 
