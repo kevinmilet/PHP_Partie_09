@@ -8,7 +8,7 @@
         $month = $_GET['month'];
         $year = $_GET['year'];
     }
-    
+
     // liste des mois en français
     $monthList = array(
         '1'=>'Janvier',
@@ -25,42 +25,29 @@
         '12'=>'Décembre'
     );
 
-    // nombre de jours dans le mois choisi    
+    // nombre de jours dans le mois choisi
     $nbDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-    var_dump($nbDays);
 
     // 1er jour du mois choisi
     setlocale(LC_ALL, 'fr_FR', 'french', 'fra');
     $firstDay = intval(strftime('%u', strtotime($year.'-'.$month.'-01')));
-    var_dump($firstDay);
 
     // dernier jour du mois choisi
-    $lastDay = intval(date('t', mktime(0, 0, 0, $month, 1, $year)));
-    var_dump($lastDay);
+    $lastDay = intval(strftime('%u', strtotime($year.'-'.$month.'-'.$nbDays)));
 
     // remplissage du tableau calendrier
     $calendar = array();
-    $cal1 = array();
-    $cal2 = array();
-    $cal3 = array();
 
-    for ($a = 1; $a <= $firstDay; $a++) {
-        array_push($cal1, null);
+    for ($a = 1; $a <= $firstDay - 1; $a++) {
+        array_push($calendar, null);
     }
-    for ($b = $firstDay; $b <= $lastDay; $b++) {
-        array_push($cal2, $b);
+    for ($b = 1; $b <= $nbDays; $b++) {
+        array_push($calendar, $b);
     }
-    for ($c = $lastDay; $c <= $nbDays; $c++) {
-        array_push($cal3, null);
+    for ($c = $lastDay - 1; $c < 6; $c++) {
+        array_push($calendar, null);
     }
-    var_dump($cal1);
-    var_dump($cal2);
-    var_dump($cal3);
 
-    $calendar = array_merge($cal1, $cal2, $cal3);
-    var_dump($calendar);
-
-    // $calendar = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null];
 ?>
 
 <!-- partie html de la page -->
@@ -75,18 +62,12 @@
 <body>
 
     <div class="container">
-        <h1>Partie 9 - TP</h1>
-        <p>Faire un formulaire avec deux listes déroulantes. La première sert à choisir le mois, et le deuxième permet d'avoir l'année.</p2>
-        <p>En fonction des choix, afficher un calendrier comme celui-ci : </p>
-        <a href="http://icalendrier.fr/media/imprimer/2017/mensuel/calendrier-2017-mensuel-bigthumb.png" target="_blank">http://icalendrier.fr/media/imprimer/2017/mensuel/calendrier-2017-mensuel-bigthumb.png</a>
-
-        <hr>
-
+        
         <!-- Formulaire permettant de choisir un mois et une année -->
-        <div class="formular">
+        <div class="mt-2 formular">
 
             <p>Choisissez un mois et une année: </p>
-        
+
             <form action="index.php" method="get" class="form-inline">
 
                 <div class="form-group ml-2">
@@ -106,7 +87,7 @@
                         <option value="12">Décembre</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group ml-2">
                     <label for="year">Année</label>
                     <select name="year" id="year" class="form-control ml-2">
@@ -118,7 +99,7 @@
                         <option value="2025">2025</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group ml-3">
                     <button type="submit" class="btn btn-primary">Envoyer</button>
                 </div>
@@ -128,7 +109,7 @@
         </div>
 
         <!-- Calendrier -->
-        <div class="container mb-5">
+        <div class="container my-5">
             <div class="row month-title">
                 <h4 class="month-year"><?=$monthList[$month];?> <?=$year;?></h4>
             </div>
@@ -158,31 +139,16 @@
 
             <!-- Rendu du calendrier -->
             <?php
-                foreach ($calendar as $key => $day) {
-                    if ($key%7 == 0) {
-                        echo '<div class="row">';
+                $chunkCalendar = array_chunk($calendar, 7);
+                foreach($chunkCalendar as $week => $days) {
+                    echo '<div class="row">';
+                    foreach($chunkCalendar[$week] as $day){
+                        echo '<div class="col day-case">'. $day .'</div>';
                     }
-                    if (($key-1)%7 == 0) {
-                        echo '</div>';
-                    }
-                }    
-                    // echo '</div>';
-                    //     for ($i = 1; $i <= $firstDayNumber; $i++) {
-                    //         echo '<div class="col day-case"></div>'; 
-                    //     }
-                    //     for ($i = $firstDayNumber; $i <= $lastDay; $i++) {
-                    //         echo '<div class="col day-case">'. $day .'</div>';
-                    //     }
-                    //     for ($i = $lastDay; $i <= $nbDays; $i++) {
-                    //         echo '<div class="col day-case"></div>';
-                            
-                    //     }
-                    // }
-                // }
-                
-                
+                    echo '</div>';
+                }
             ?>
-            
+
         </div>
 
     </div>
