@@ -11,7 +11,7 @@
     <h3>Bonus : Le faire en français.</h3>
 
     <?php
-        setlocale(LC_TIME, ['fr.UTF8', 'fra.UTF8', 'fr_FR.UTF8']);
+        setlocale(LC_TIME, 'fr.UTF-8', 'fra.UTF-8', 'fr_FR.UTF-8');
     ?>
 
     <p><strong>Date du jour : </strong><?=strftime('%A %d %B %Y');?></p>
