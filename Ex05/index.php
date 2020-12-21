@@ -11,9 +11,9 @@
 
     <?php
         // on stocke la date du 16 mai 2016
-        $startDate = new DateTime('16-05-2016');
+        $startDate = new DateTime('2016-05-16');
         // on stocke la date du jour
-        $today = new DateTime(date('j-m-y'));
+        $today = new DateTime(date('Y-m-j'));
 
         // on calcule la différence de jour entre aujourd'hui et la 1ere date
         $nbDays = $today->diff($startDate)->format('%a');
